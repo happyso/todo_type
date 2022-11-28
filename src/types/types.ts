@@ -3,6 +3,6 @@ export interface Id {
 }
 
 export interface Todo extends Id {
-    desc: string
+    text: string
     isComplete: boolean
 }
