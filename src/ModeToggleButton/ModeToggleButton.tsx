@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import { useRecoilState } from 'recoil'
 import { IconButton } from '@mui/material'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
 import { appThemeMode, ThemeMode } from '../atom/atoms'
 
 interface DynamicIconProps {
@@ -8,8 +10,8 @@ interface DynamicIconProps {
 }
 
 function DynamicIcon({ mode }: DynamicIconProps): ReactElement {
-    if (mode === 'dark') return <div>다크</div>
-    return <div>라이트</div>
+    if (mode === 'dark') return <DarkModeIcon />
+    return <LightModeIcon />
 }
 
 function ModeToggleButton(): ReactElement {

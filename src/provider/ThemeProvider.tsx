@@ -18,7 +18,7 @@ function AppThemeProvider(props: Props): ReactElement {
                         main: '#61dafb',
                     },
                     secondary: {
-                        main: '#EB9612CC',
+                        main: '#EB9612C',
                     },
                 },
             }),
