@@ -7,8 +7,11 @@ async function getTodos(): Promise<Todo[]> {
     return data
 }
 
-export function useTodo(): Todo[] {
+export function useTodo(): { todoData: Todo[]; isLoading: boolean } {
     const fallback: Todo[] | undefined = []
-    const { data: todoData = fallback } = useQuery(['todo_list'], getTodos)
-    return todoData
+    const { data: todoData = fallback, isLoading } = useQuery(
+        ['todo_list'],
+        getTodos
+    )
+    return { todoData, isLoading }
 }

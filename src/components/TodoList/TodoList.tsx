@@ -1,4 +1,4 @@
-import React, { useState, useCallback, MouseEvent } from 'react'
+import React, { useState, useCallback, MouseEvent, useEffect } from 'react'
 import ModeToggleButton from '../../ModeToggleButton/ModeToggleButton'
 import AppThemeProvider from '../../provider/ThemeProvider'
 import { Todo, FilterButton } from '../../types/types'
@@ -21,43 +21,22 @@ export default function TodoList() {
         },
     ]
 
-    const todos: Todo[] = [
-        {
-            id: 1,
-            text: '물마시기',
-            status: 'active',
-        },
-        {
-            id: 2,
-            text: '로잉머신 1km 성공하기',
-            status: 'active',
-        },
-        {
-            id: 3,
-            text: '식물에 물주기',
-            status: 'active',
-        },
-        {
-            id: 4,
-            text: '커피 마시는것 하루 세잔으로 줄이기!',
-            status: 'active',
-        },
-        {
-            id: 5,
-            text: '야무지게 숨쉬기',
-            status: 'active',
-        },
-    ]
+    //const [data, setData] = useState(todosData)
+    const [data, setData] = useState(readTodos)
 
-    const [data, setData] = useState(todos)
     const [filter, setFilter] = useState('all')
 
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(data))
+    }, [data])
     const handleAdd = (todo: Todo) => {
         setData((prev) => [...prev, todo])
     }
 
     const handleDelete = useCallback((todo: Todo) => {
-        setData((todos) => todos.filter((item) => item.id !== todo.id))
+        setData((todos) =>
+            todos.filter((item: { id: number }) => item.id !== todo.id)
+        )
     }, [])
 
     const handleUpdate = useCallback((updated: Todo) => {
@@ -108,4 +87,9 @@ function getFilterdItem(todos: Todo[], filter: string) {
         return todos
     }
     return todos.filter((item) => item.status === filter)
+}
+
+function readTodos(): Todo[] | [] {
+    const todos = localStorage.getItem('todos')
+    return todos ? JSON.parse(todos) : []
 }
