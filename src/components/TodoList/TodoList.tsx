@@ -1,5 +1,7 @@
-import React, { useState, ComponentProps } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Todo } from '../../types/types'
+import { AddTodo } from '../AddTodo/AddTodo'
+import TodoItem from '../TodoItem/TodoItem'
 
 export default function TodoList() {
     const todos: Todo[] = [
@@ -31,54 +33,33 @@ export default function TodoList() {
     ]
 
     const [data, setData] = useState(todos)
-    // const [form, setFrom] = useState({
-    //     id: '',
-    //     desc: '',
-    //     isComplete: false,
-    // })
 
     const handleAdd = (todo: Todo) => {
         setData((prev) => [...prev, todo])
     }
+
+    const handleDelete = useCallback((todo: Todo) => {
+        setData((todos) => todos.filter((item) => item.id !== todo.id))
+    }, [])
+
+    const handleUpdate = useCallback((updated: Todo) => {
+        setData((todos) =>
+            todos.map((t) => (t.id === updated.id ? updated : t))
+        )
+    }, [])
     return (
         <>
-            {data.map((item) => (
-                <div key={item.id}>{item.text}</div>
-            ))}
+            <ul>
+                {data.map((item) => (
+                    <TodoItem
+                        key={item.id}
+                        todo={item}
+                        onUpdate={handleUpdate}
+                        onDelete={handleDelete}
+                    />
+                ))}
+            </ul>
             <AddTodo onAdd={handleAdd} />
         </>
-    )
-}
-
-export function AddTodo({ onAdd }: { onAdd: any }) {
-    const [text, setText] = useState('')
-    const handleSubmit: ComponentProps<'form'>['onSubmit'] = (e): void => {
-        e.preventDefault()
-        const id = String(new Date().getMilliseconds())
-        onAdd({
-            id: id,
-            text: text,
-            isComplete: false,
-        })
-        setText('')
-    }
-    const handleChange: ComponentProps<'input'>['onChange'] = (e): void => {
-        const { value } = e.target
-        setText(value)
-    }
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="desc">할일적기:</label>
-                <input
-                    type="text"
-                    placeholder="Add Todo"
-                    value={text}
-                    onChange={handleChange}
-                />
-
-                <button>Add</button>
-            </form>
-        </div>
     )
 }
