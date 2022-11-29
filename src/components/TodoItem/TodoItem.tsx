@@ -12,20 +12,20 @@ export default function TodoItem({
     onUpdate: onUpdate
     onDelete: onDelete
 }) {
-    const { text, isComplete } = todo
+    const { text, status } = todo
     const handleDelete = () => {
         onDelete(todo)
     }
     const handleChange = (e: { target: HTMLInputElement }) => {
-        const status = e.target.checked ? true : false
-        onUpdate({ ...todo, isComplete: status })
+        const status = e.target.checked ? 'completed' : 'active'
+        onUpdate({ ...todo, status: status })
     }
     return (
         <li>
             <input
                 type="checkbox"
                 id={todo.text}
-                checked={isComplete}
+                checked={status === 'completed'}
                 onChange={handleChange}
             />
             <label htmlFor={todo.text}>{text}</label>

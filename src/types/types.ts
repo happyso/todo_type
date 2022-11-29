@@ -4,5 +4,10 @@ export interface Id {
 
 export interface Todo extends Id {
     text: string
-    isComplete: boolean
+    status: string
+}
+
+export interface FilterButton {
+    name: string
+    value: string
 }

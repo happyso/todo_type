@@ -12,7 +12,7 @@ export function AddTodo({ onAdd }: { onAdd: onAdd }) {
         onAdd({
             id: Number(id),
             text: text,
-            isComplete: false,
+            status: 'active',
         })
         setText('')
     }

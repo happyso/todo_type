@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { axiosInstance } from '../../axiosInstance'
-import { Todo } from '../../types/types'
+import { axiosInstance } from '../axiosInstance'
+import { Todo } from '../types/types'
 
 async function getTodos(): Promise<Todo[]> {
     const { data } = await axiosInstance.get('/todoData.json')
