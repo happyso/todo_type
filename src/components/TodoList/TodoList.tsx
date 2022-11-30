@@ -1,8 +1,9 @@
 import React, { useState, useCallback, MouseEvent, useEffect } from 'react'
-import ModeToggleButton from '../../ModeToggleButton/ModeToggleButton'
+
 import AppThemeProvider from '../../provider/ThemeProvider'
 import { Todo, FilterButton } from '../../types/types'
 import { AddTodo } from '../AddTodo/AddTodo'
+import ModeToggleButton from '../ModeToggleButton/ModeToggleButton'
 import TodoItem from '../TodoItem/TodoItem'
 
 export default function TodoList() {
